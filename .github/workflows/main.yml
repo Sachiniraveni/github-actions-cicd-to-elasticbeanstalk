@@ -13,7 +13,7 @@ on:
 
 jobs:
     my_ci_pipeline:
-       runs-on: amazon-linux
+       runs-on: Amazon-linux 2
        
        steps:
          - name: Git clone our repository
