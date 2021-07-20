@@ -5,3 +5,5 @@ So, you need to re-run the jobs once-again to build successfully i.e CD pipeline
 
 
 1. Mandatory to have an s3 bucket and Elastic beanstalk environment up and running.
+
+The code has newer vesion of the application, it will build it and save the artifacts to the s3 and then deploy it to the EB.
