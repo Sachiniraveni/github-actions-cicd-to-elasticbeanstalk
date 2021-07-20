@@ -8,7 +8,9 @@ env:
 
 on: 
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - dev
 
 jobs:
   build-CI:
@@ -48,6 +50,7 @@ jobs:
              aws-region           : ${{ env.AWS_REGION_NAME }}
          
          - name: Create new ElasticBeanstalk Applicaiton Version
+           if  : github.ref == 'ref/heads/dev'
            run : |
             aws elasticbeanstalk create-application-version \
             --application-name ${{ env.EB_APPLICATION_NAME }} \
