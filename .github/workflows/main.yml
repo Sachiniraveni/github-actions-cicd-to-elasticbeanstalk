@@ -31,14 +31,13 @@ jobs:
              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
              aws-region           : ${{ env.AWS_REGION_NAME }}
          
-         - name : check if the s3 bucket exists
-           id   : check
-           run  : OUTPUT=$(aws s3api  bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
+#          - name : check if the s3 bucket exists
+#            id   : check
+#            run  : OUTPUT=$(aws s3api  bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
 #        run : aws s3 ls "s3://${{ env.S3_BUCKET_NAME }}" 2>&1 | grep -q 'No such bucket'
 
 #        runs only when the previous steps fails
          - name : Create an s3 bucket
-           if  :  ${{ failure() }}
            run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
 
 #          - name : check if the s3 bucket exists
