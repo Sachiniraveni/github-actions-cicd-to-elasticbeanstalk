@@ -70,7 +70,7 @@ jobs:
       - run : sam build
 #         working-directory: github-actions-cicd-to-elasticbeanstalk
         
-      - run: sam deploy --template-file template.yaml --capabilities CAPABILITY_IAM --s3-bucket {{ env.EB_PACKAGE_S3_BUCKET_NAME}}
+      - run: sam deploy --template-file template.yaml --capabilities CAPABILITY_IAM --s3-bucket {{ env.EB_PACKAGE_S3_BUCKET_NAME}} --stack-name ${{ env.STACK_NAME }}
 #         working-directory: github-actions-cicd-to-elasticbeanstalk
        
       - name: Create new ElasticBeanstalk Applicaiton Version
