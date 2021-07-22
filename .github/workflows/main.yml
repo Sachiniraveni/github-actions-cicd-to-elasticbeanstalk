@@ -69,11 +69,12 @@ jobs:
            run: dir=$(pwd) && echo $dir
            
          - name: go
-           run: sam deploy --template-file template.yaml \
-            --capabilities CAPABILITY_IAM \
-            --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
-            --region ${{ env.AWS_REGION_NAME }} \
-            --stack-name ${{ env.STACK_NAME }} \
+           run: |
+             sam deploy --template-file template.yaml \
+             --capabilities CAPABILITY_IAM \
+             --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
+             --region ${{ env.AWS_REGION_NAME }} \
+             --stack-name ${{ env.STACK_NAME }} \
            
        
          
