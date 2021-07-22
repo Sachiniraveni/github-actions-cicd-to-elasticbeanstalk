@@ -1,0 +1,26 @@
+WSTemplateFormatVersion: '2010-09-09'
+
+Description: Simple S3 Bucket with SNS Trigger
+
+Parameters:
+
+  BucketName:
+    Type: String
+    Description: The name of the S3 Bucket to create
+
+Metadata:
+
+  AWS::CloudFormation::Interface:
+    ParameterLabels:
+      BucketName:
+        default: S3 Bucket Name
+
+Resources:
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DependsOn:
+      - SNSTopicPolicy
+    Properties:
+      # Need to define a static BucketName due to a circular dependency with the AWS::SNS::TopicPolicy
+      BucketName: !Ref BucketName
