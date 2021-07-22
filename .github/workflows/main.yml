@@ -65,7 +65,8 @@ jobs:
              aws-region           : ${{ env.AWS_REGION_NAME }}
          
          - name: get pwd
-           run: ls
+           run: dir=$(pwd) && echo $dir
+           
        
          
          - name: Create new ElasticBeanstalk Applicaiton Version
