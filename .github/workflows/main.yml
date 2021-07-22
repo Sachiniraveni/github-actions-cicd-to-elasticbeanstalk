@@ -68,6 +68,10 @@ jobs:
          - name: get pwd
            run: dir=$(pwd) && echo $dir    
              
+         - name: go baack
+           run : cd ../
+           
+           
          - name: sam deploy
            run: |
              sam deploy --template-file template.yml \
