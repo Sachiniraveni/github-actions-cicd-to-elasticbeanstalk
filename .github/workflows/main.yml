@@ -70,14 +70,15 @@ jobs:
          
 #          - name: go back
 #            run: 
-         - name: SAM Build
-           run: |
-            sam build
-             
+#          - name: SAM Build
+#            run: |
+#             sam build
+         - name : pwd
+           run  : cd -
            
          - name: go
            run: |
-             sam deploy --template-file .aws-sam/build/template.yml \
+             sam deploy --template-file template.yml \
              --capabilities CAPABILITY_IAM \
              --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
              --region ${{ env.AWS_REGION_NAME }} \
