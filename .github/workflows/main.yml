@@ -38,12 +38,15 @@ jobs:
 
 #        runs only when the previous steps fails
          - name : Create an s3 bucket
-           if  : steps.check.outputs.OUTPUT == 400
+           if  :  ${{ failure() }}
            run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} --region ${{ env.REGION }}
 
+         - name : check if the s3 bucket exists
+           id   : checks
+           run  : OUTPUT=$(aws s3api wait bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
 
          - name: Copy our Deployment package to S3 bucket
-           if  : steps.check.outputs.OUTPUT == 200
+           if  : steps.checks.outputs.OUTPUT == 200
            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
          
          - name: Print nice message on completion of CI Pipeline
