@@ -54,31 +54,16 @@ jobs:
            run : echo "CI Pipeline part finished successfully"
            
   build-CD:
-    name: my CD-pipeline
     runs-on: ubuntu-latest
-       
     steps:
-         - name: Configure my AWS Credentils
          - uses: aws-actions/configure-aws-credentials@v1
          - uses: aws-actions/setup-sam@v1
            with:
              aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
              aws-region           : ${{ env.AWS_REGION_NAME }}
-         
-         - name: get pwd
-           run: dir=$(pwd) && echo $dir
-         
-#          - name: go back
-#            run: 
-#          - name: SAM Build
-#            run: |
-#             sam build
-         - name : pwd
-           run  : cd /
-           
-         - name: go
-           run: |
+
+         -  run: |
              sam deploy --template-file template.yml \
              --capabilities CAPABILITY_IAM \
              --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
