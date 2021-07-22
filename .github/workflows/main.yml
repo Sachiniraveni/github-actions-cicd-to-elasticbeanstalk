@@ -68,7 +68,7 @@ jobs:
            run: dir=$(pwd) && echo $dir
            
          - name: go
-           run: aws cloudformation create-stack --stack-name teststackgit --template-body file://template.yml 
+           run: sam deploy --template-file template.yaml 
            
        
          
