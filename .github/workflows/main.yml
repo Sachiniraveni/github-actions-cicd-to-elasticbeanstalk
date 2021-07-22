@@ -39,7 +39,7 @@ jobs:
 #        runs only when the previous steps fails
          - name : Create an s3 bucket
            if  :  ${{ failure() }}
-           run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} --region ${{ env.REGION }}
+           run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
 
          - name : check if the s3 bucket exists
            id   : checks
