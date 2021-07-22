@@ -70,6 +70,10 @@ jobs:
          
 #          - name: go back
 #            run: 
+         - name: SAM Build
+           run: |
+            sam build
+             
            
          - name: go
            run: |
