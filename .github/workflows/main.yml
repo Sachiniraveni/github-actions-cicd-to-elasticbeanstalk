@@ -82,6 +82,7 @@ jobs:
              --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
              --region ${{ env.AWS_REGION_NAME }} \
              --stack-name ${{ env.STACK_NAME }} \
+           working-directory: github-actions-cicd-to-elasticbeanstalk
            
        
          
