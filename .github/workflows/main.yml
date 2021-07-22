@@ -68,13 +68,8 @@ jobs:
           aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
           aws-region           : ${{ env.AWS_REGION_NAME }}
-      -  run: |
-             sam deploy --template-file template.yml \
-             --capabilities CAPABILITY_IAM \
-             --s3-bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
-             --region ${{ env.AWS_REGION_NAME }} \
-             --stack-name ${{ env.STACK_NAME }} \
-         working-directory: github-actions-cicd-to-elasticbeanstalk
+      - run: sam deploy --template-file template.yaml --capabilities CAPABILITY_IAM --s3-bucket {{ env.EB_PACKAGE_S3_BUCKET_NAME}}
+        working-directory: github-actions-cicd-to-elasticbeanstalk
        
       - name: Create new ElasticBeanstalk Applicaiton Version
         run: |
