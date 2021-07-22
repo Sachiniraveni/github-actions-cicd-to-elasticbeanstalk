@@ -68,8 +68,8 @@ jobs:
          - name: get pwd
            run: dir=$(pwd) && echo $dir
          
-         - name: go back
-           run: cd ..
+#          - name: go back
+#            run: 
            
          - name: go
            run: |
