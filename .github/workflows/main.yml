@@ -31,6 +31,10 @@ jobs:
            run : zip ${{ env.ARCHIVE_NAME }} -r .
            working-directory: ${{ env.working-directory }}
            
+         - run : dir=$(ls) && echo $dir
+           working-directory: ${{ env.working-directory }}
+         
+           
          - name: Configure my AWS Credentils
            uses: aws-actions/configure-aws-credentials@v1
            with:
@@ -46,10 +50,14 @@ jobs:
 #        runs only when the previous steps fails
          - name : Create an s3 bucket 
            run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
+           working-directory: ${{ env.working-directory }}
 
 #          - name : check if the s3 bucket exists
 #            id   : checks
 #            run  : OUTPUT=$(aws s3api wait bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
+         - run : dir=$(ls) && echo $dir
+           working-directory: ${{ env.working-directory }}
+
 
          - name: Copy our Deployment package to S3 bucket 
            if  :  ${{ success() }}
