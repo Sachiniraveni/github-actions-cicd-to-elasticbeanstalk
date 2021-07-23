@@ -8,7 +8,7 @@ env:
   STACK_NAME                : "my-deploymentt"
   working-directory         : "./templates"
   ARCHIVE_NAME     : "flask-$(date +'%Y-%m-%d@%H-%M-%S').zip"
-  S3_PATH_FOR_CODE : "flaask-dev/function-code/${ARCHIVE_NAME}"
+  S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
 
 on: 
   push:
