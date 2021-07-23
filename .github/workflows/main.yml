@@ -26,7 +26,7 @@ jobs:
            run : cd ./templates
             
          - name: Create ZIP deployment package
-           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }}
+           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
            
          - name: Configure my AWS Credentils
            uses: aws-actions/configure-aws-credentials@v1
