@@ -7,7 +7,7 @@ env:
   AWS_REGION_NAME           : "us-east-1"
   STACK_NAME                : "my-deploymentt"
   working-directory         : "./templates"
-  ARCHIVE_NAME     : "flask-$(date +'%Y-%m-%d@%H-%M-%S').zip"
+  ARCHIVE_NAME     : "flask-${{ date +'%Y-%m-%d@%H-%M-%S'}}.zip"
   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
 
 on: 
