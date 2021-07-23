@@ -3,7 +3,7 @@ env:
   EB_PACKAGE_S3_BUCKET_NAME : "flask-dev"
   EB_APPLICATION_NAME       : "MyFlask"
   EB_ENVIRONMENT_NAME       : "MyFlask-env"
-  DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
+#   DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-east-1"
   STACK_NAME                : "my-deploymentt"
   working-directory         : "./templates"
@@ -28,7 +28,7 @@ jobs:
 #            run : cd ./templates
             
          - name: Create ZIP deployment package
-           run : zip ${{ env.DEPLOY_PACKAGE_NAME }} -r .
+           run : zip ${{ env.ARCHIVE_NAME }} -r .
            working-directory: ${{ env.working-directory }}
            
          - name: Configure my AWS Credentils
