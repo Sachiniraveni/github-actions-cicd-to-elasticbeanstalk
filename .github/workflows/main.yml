@@ -22,11 +22,12 @@ jobs:
          - name: Git clone our repository
            uses: actions/checkout@v1
          
-         - name: in to the directory
-           run : cd ./templates
+#          - name: in to the directory
+#            run : cd ./templates
             
          - name: Create ZIP deployment package
            run : zip ${{ env.DEPLOY_PACKAGE_NAME }} -r .
+           working-directory: ./templates
            
          - name: Configure my AWS Credentils
            uses: aws-actions/configure-aws-credentials@v1
