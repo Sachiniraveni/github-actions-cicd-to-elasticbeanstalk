@@ -21,9 +21,12 @@ jobs:
     steps:
          - name: Git clone our repository
            uses: actions/checkout@v1
+         
+         - name: in to the directory
+           run : cd ./templates
             
          - name: Create ZIP deployment package
-           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./  -x  *.git*
+           run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }}
            
          - name: Configure my AWS Credentils
            uses: aws-actions/configure-aws-credentials@v1
