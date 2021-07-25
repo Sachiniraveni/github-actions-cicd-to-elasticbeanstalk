@@ -52,6 +52,12 @@ jobs:
          - name : Create an s3 bucket 
            run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
            working-directory: ${{ env.working-directory }}
+           
+         - name: put bucket policy
+           run : |
+            aws s3api put-public-access-block \
+            --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
+            --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
 
 #          - name : check if the s3 bucket exists
 #            id   : checks
