@@ -6,7 +6,8 @@ require 'github/markup'
 
 GitHub::Markup.render('README.markdown', "* One\n* Two")
 ```
-```ruby 
+
+```orange 
 
 NOTE : No line of code should be added below this  `aws-actions/configure-aws-credentials@v1` rather than a `with` statement with the credentials. Otherwise, it will return an error. 
 
