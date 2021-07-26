@@ -1,3 +1,6 @@
+[![Build Status](https://github.com/JS-DevTools/npm-publish/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/npm-publish/actions)
+
+
 # github-actions-cicd-to-elasticbeanstalk
 
 The Workflow in ./github/workflows/main.yml also follows setup for parallel builds. Just to test if the parallel builds are working or not. Otherwise having parallel builds for CI & CD pipeline is not quite logical.
