@@ -1,5 +1,4 @@
-[![Build Status](https://github.com/JS-DevTools/npm-publish/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/npm-publish/actions)
-<p>
+[![Build Status](https://github.com/JS-DevTools/npm-publish/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/npm-publish/actions) <br>
 [![Dependencies](https://david-dm.org/JS-DevTools/npm-publish/status.svg)](https://david-dm.org/JS-DevTools/npm-publish)
 
 
