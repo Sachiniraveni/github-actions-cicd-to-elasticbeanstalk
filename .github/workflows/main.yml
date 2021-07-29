@@ -9,6 +9,7 @@ env:
   working-directory         : "./templates"
   ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
+  SSH_PRIVATE_KEY  :  ${{ secrets.SSH_PRIVATE_KEY }}
 
 on: 
   push:
@@ -84,7 +85,7 @@ jobs:
            run : echo "CI Pipeline part finished successfully"
            
          - name: Check the secrets
-           run : echo ${{ secrets.SSH_PRIVATE_KEY }}
+           run : echo ${{ env.SSH_PRIVATE_KEY }}
          
 
            
