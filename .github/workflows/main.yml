@@ -84,7 +84,7 @@ jobs:
            run : echo "CI Pipeline part finished successfully"
            
          - name: Check the secrets
-           run : echo ${{ env.SSH_PRIVATE_KEY }}
+           run : echo ${{ secrets.SSH_PRIVATE_KEY }}
          
 
            
