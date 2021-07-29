@@ -9,7 +9,7 @@ env:
   working-directory         : "./templates"
   ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
-  working:          "/home/runner/.ssh"
+  working:          "/home/runner/"
 
 on: 
   push:
