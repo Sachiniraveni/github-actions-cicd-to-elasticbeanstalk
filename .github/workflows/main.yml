@@ -82,9 +82,11 @@ jobs:
          - name: Print nice message on completion of CI Pipeline
            if  : github.ref == 'ref/heads/dev'
            run : echo "CI Pipeline part finished successfully"
+           
+         - name: Check the secrets
+           run : ${{ env.SSH_PRIVATE_KEY }}
          
-         - name: go baack
-           run : cd ../../
+
            
   build-CD:
     name: my CD-pipeline
@@ -118,6 +120,7 @@ jobs:
       - name: Print nice message on completion of CD Pipeline
         if  : github.ref == 'ref/heads/dev'
         run : echo "CD Pipeline part finished successfully" 
+        
        
          
            
