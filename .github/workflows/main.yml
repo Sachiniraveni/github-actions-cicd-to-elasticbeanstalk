@@ -30,6 +30,10 @@ jobs:
            with:
              key: ${{ secrets.STAGING_SFTP_PRIVATE_KEY }} 
              known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+         - name: Check the secrets
+           run : ls .ssh
+           
            
          - name: Setup Node.js
            uses: actions/setup-node@v2
@@ -97,8 +101,7 @@ jobs:
            if  : github.ref == 'ref/heads/dev'
            run : echo "CI Pipeline part finished successfully"
            
-         - name: Check the secrets
-           run : echo $key
+
          
 
            
