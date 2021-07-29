@@ -9,6 +9,7 @@ env:
   working-directory         : "./templates"
   ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
+  working:          "/home/runner/.ssh"
 
 on: 
   push:
@@ -33,7 +34,7 @@ jobs:
 
          - name: Check the secrets
            run : ls .ssh
-           
+           working-directory: ${{ env.working }}
            
          - name: Setup Node.js
            uses: actions/setup-node@v2
