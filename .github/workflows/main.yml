@@ -9,7 +9,6 @@ env:
   working-directory         : "./templates"
   ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
-  SSH_PRIVATE_KEY  :  ${{ secrets.SSH_PRIVATE_KEY }}
 
 on: 
   push:
@@ -24,7 +23,12 @@ jobs:
        
     steps:
          - name: Git clone our repository
-           uses: actions/checkout@v1
+           uses: actions/checkout@v2
+         
+         - name: Git clone out repo
+           uses: webfactory/ssh-agent@v0.5.3
+           with:
+               ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
            
          - name: Setup Node.js
            uses: actions/setup-node@v2
