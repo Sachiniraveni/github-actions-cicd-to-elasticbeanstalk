@@ -11,6 +11,12 @@ jobs:
       - run:
           name: Zipping the package
           command: zip -r << pipeline.number >> ./templates/
+      - run: 
+          name: installing aws cli
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo  pip3 install awsebcli --upgrade
       - run:
           name: creating a s3 bucket
           command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
