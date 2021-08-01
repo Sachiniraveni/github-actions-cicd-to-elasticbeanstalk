@@ -1,0 +1,28 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@2.0.3
+jobs:
+  build:
+    docker:
+      - image: circleci/node
+      
+    working_directory: /mnt/ramdisk
+    
+    steps:
+      - checkout
+      - run:
+          name: Zipping the package
+          command: zip -r << pipeline.number >>
+      - run:
+          name: creating a s3 bucket
+          command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
+      - run:
+          name: copy the zip file into s3 bucket
+          command: aws s3 cp << pipeline.number >> "s3://circle-ci-buckett" --region $AWS_REGION
+
+
+
+workflows:
+  deploy:
+    jobs:
+      - build
