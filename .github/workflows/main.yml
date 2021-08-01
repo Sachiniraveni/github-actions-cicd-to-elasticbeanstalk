@@ -13,10 +13,7 @@ env:
   working2:          "/home/runner/.ssh/"
 
 on: 
-  push:
-    branches:
-      - main
-      - dev
+  workflow_dispatch
 
 jobs:
   build-CI:
