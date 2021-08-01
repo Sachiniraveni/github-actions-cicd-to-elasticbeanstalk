@@ -5,18 +5,18 @@ jobs:
   build:
     docker:
       - image: circleci/node
-      
-    working_directory: ./templates
     
     steps:
       - checkout
       - run:
+          working_directory: ./templates
           name: Zipping the package
           command: zip -r << pipeline.number >>
       - run:
           name: creating a s3 bucket
           command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
       - run:
+          working_directory: ./templates
           name: copy the zip file into s3 bucket
           command: aws s3 cp << pipeline.number >> "s3://circle-ci-buckett" --region $AWS_REGION
 
