@@ -24,7 +24,7 @@ jobs:
       - run:
           working_directory: ./templates/
           name: copy the zip file into s3 bucket
-          command: aws s3 cp ./templates/<< pipeline.number >>.zip "s3://circle-ci-buckett" --region $AWS_REGION
+          command: aws s3 cp << pipeline.number >>.zip "s3://circle-ci-buckett" --region $AWS_REGION
 
 
 
