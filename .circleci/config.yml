@@ -27,7 +27,6 @@ jobs:
       - run:
           name: creating a s3 bucket
           command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
-      - run: ls && pwd
       - run:
           working_directory: ./templates/
           name: copy the zip file into s3 bucket
