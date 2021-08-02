@@ -23,7 +23,7 @@ jobs:
       - save_cache: 
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - cache.txt
+            - /home/circleci/project/
       - run:
           name: creating a s3 bucket
           command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
