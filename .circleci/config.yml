@@ -21,7 +21,7 @@ jobs:
             unzip awscliv2.zip
             sudo ./aws/install
       - save_cache: 
-          key: dependency-cache-{{ checksum "packagee.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths: ./aws
       - run:
           name: creating a s3 bucket
