@@ -11,8 +11,8 @@ jobs:
       - run:
           name: Zipping the package
           command: zip -r << pipeline.number >> ./templates/
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}          
+#       - restore_cache:
+#           key: dependency-cache-{{ checksum "package.json" }}          
       - run: 
           name: installing aws cli
           command: |
@@ -20,10 +20,10 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-      - save_cache: 
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - /home/circleci/project/
+#       - save_cache: 
+#           key: dependency-cache-{{ checksum "package.json" }}
+#           paths:
+#             - /home/circleci/project/
       - run:
           name: creating a s3 bucket
           command: aws s3 mb s3://circle-ci-buckett --region $AWS_REGION
