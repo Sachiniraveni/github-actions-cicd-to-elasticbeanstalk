@@ -6,8 +6,9 @@ env:
   DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-east-2"
 
-on: 
-  workflow_dispatch
+on:
+  push:
+    branches: dev
 
 jobs:
   build-CI:
