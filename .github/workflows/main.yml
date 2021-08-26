@@ -5,6 +5,7 @@ env:
   EB_ENVIRONMENT_NAME       : "MyFlask-env"
   DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
   AWS_REGION_NAME           : "us-east-2"
+  jmeter-dir                : "/tests/"
 
 on:
   push:
@@ -39,6 +40,7 @@ jobs:
            with: 
              name: jmeter-results
              path: result.jtl
+             working-directory: ${{ env.jmeter-dir }}
 
 #          - name: Copy our Deployment package to S3 bucket
 #            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
