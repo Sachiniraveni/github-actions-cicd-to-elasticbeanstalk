@@ -39,4 +39,9 @@ workflows:
     jobs:
       - build:
          type: approval
+         filters:
+           branches:
+             only:
+               - main
+           
       
