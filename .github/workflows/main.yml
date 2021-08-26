@@ -27,37 +27,48 @@ jobs:
              aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
              aws-region           : ${{ env.AWS_REGION_NAME }}
+         
+         - name: Perfaction for Jmeter
+           uses: QAInsights/PerfAction@2.0
+           with: 
+             test-plan-path: 'test/calculator.jmx'
+       
+         - name: Upload results
+           uses: actions/upload-artifacts@v2
+           with: 
+             name: jmeter-results
+             path: result.jtl
 
-         - name: Copy our Deployment package to S3 bucket
-           run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
+#          - name: Copy our Deployment package to S3 bucket
+#            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
          
          - name: Print nice message on completion of CI Pipeline
            run : echo "CI Pipeline part finished successfully"
            
-  build-CD:
-    name: my CD-pipeline
-    runs-on: ubuntu-latest
+#   build-CD:
+#     name: my CD-pipeline
+#     runs-on: ubuntu-latest
        
-    steps:
-         - name: Configure my AWS Credentils
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-             aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
-             aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
-             aws-region           : ${{ env.AWS_REGION_NAME }}
+#     steps:
+#          - name: Configure my AWS Credentils
+#            uses: aws-actions/configure-aws-credentials@v1
+#            with:
+#              aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
+#              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
+#              aws-region           : ${{ env.AWS_REGION_NAME }}
          
-         - name: Create new ElasticBeanstalk Applicaiton Version
-           run : |
-            aws elasticbeanstalk create-application-version \
-            --application-name ${{ env.EB_APPLICATION_NAME }} \
-            --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
-            --version-label "Ver-${{ github.sha }}" \
-            --description "CommitSHA-${{ github.sha }}"
-         - name: Deploy our new Application Version
-           run : aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
+#          - name: Create new ElasticBeanstalk Applicaiton Version
+#            run : |
+#             aws elasticbeanstalk create-application-version \
+#             --application-name ${{ env.EB_APPLICATION_NAME }} \
+#             --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+#             --version-label "Ver-${{ github.sha }}" \
+#             --description "CommitSHA-${{ github.sha }}"
+#          - name: Deploy our new Application Version
+#            run : aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
            
-         - name: Print nice message on completion of CD Pipeline
-           run : echo "CD Pipeline part finished successfully"  
+#          - name: Print nice message on completion of CD Pipeline
+#            run : echo "CD Pipeline part finished successfully"  
         
         
         
