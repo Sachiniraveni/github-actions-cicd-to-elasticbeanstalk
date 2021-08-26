@@ -33,14 +33,14 @@ jobs:
          - name: Perfaction for Jmeter
            uses: QAInsights/PerfAction@2.0
            with: 
-             test-plan-path: 'test/calculator.jmx'
+             test-plan-path: 'tests/calculator.jmx'
        
          - name: Upload results
            uses: actions/upload-artifact@v2
            with: 
              name: jmeter-results
              path: result.jtl
-             working-directory: ${{ env.jmeter-dir }}
+         
 
 #          - name: Copy our Deployment package to S3 bucket
 #            run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
