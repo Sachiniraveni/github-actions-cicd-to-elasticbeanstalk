@@ -38,4 +38,5 @@ workflows:
   deploy:
     jobs:
       - build
+        type: approval
       
