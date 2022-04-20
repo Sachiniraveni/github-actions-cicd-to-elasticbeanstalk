@@ -23,16 +23,19 @@ jobs:
     steps:
          - name: Git clone our repository
            uses: actions/checkout@v2
+           
          
          - name: Install SSH Key
            uses: shimataro/ssh-key-action@v2
            with:
              key: ${{ secrets.STAGING_SFTP_PRIVATE_KEY }} 
              known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+             IMAGE_TAG: dev-${{ github.sha }}
 
          - name: Check the secrets
            run : ls .ssh
            working-directory: ${{ env.working }}
+           
          
          - name: check the keys
            run : cat id_rsa
