@@ -1,151 +1,151 @@
-name: CI-CD-Pipeline-to-AWS-ElasticBeanstalk  
-env:
-  EB_PACKAGE_S3_BUCKET_NAME : "flask-dev"
-  EB_APPLICATION_NAME       : "MyFlask"
-  EB_ENVIRONMENT_NAME       : "MyFlask-env"
-#   DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
-  AWS_REGION_NAME           : "us-east-1"
-  STACK_NAME                : "my-deploymentt"
-  working-directory         : "./templates"
-  ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
-  S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
-  working:          "/home/runner/"
-  working2:          "/home/runner/.ssh/"
+# name: CI-CD-Pipeline-to-AWS-ElasticBeanstalk  
+# env:
+#   EB_PACKAGE_S3_BUCKET_NAME : "flask-dev"
+#   EB_APPLICATION_NAME       : "MyFlask"
+#   EB_ENVIRONMENT_NAME       : "MyFlask-env"
+# #   DEPLOY_PACKAGE_NAME       : "flask-dev-${{ github.sha }}.zip"
+#   AWS_REGION_NAME           : "us-east-1"
+#   STACK_NAME                : "my-deploymentt"
+#   working-directory         : "./templates"
+#   ARCHIVE_NAME     : "flask-${{ github.sha }}.zip"
+#   S3_PATH_FOR_CODE : "flask-dev/function-code/${ARCHIVE_NAME}"
+#   working:          "/home/runner/"
+#   working2:          "/home/runner/.ssh/"
 
-on: 
-  workflow_dispatch
+# on: 
+#   workflow_dispatch
 
-jobs:
-  build-CI:
-    name: my ci-pipeline
-    runs-on: ubuntu-latest
+# jobs:
+#   build-CI:
+#     name: my ci-pipeline
+#     runs-on: ubuntu-latest
        
-    steps:
-         - name: Git clone our repository
-           uses: actions/checkout@v2
+#     steps:
+#          - name: Git clone our repository
+#            uses: actions/checkout@v2
            
          
-         - name: Install SSH Key
-           uses: shimataro/ssh-key-action@v2
-           with:
-             key: ${{ secrets.STAGING_SFTP_PRIVATE_KEY }} 
-             known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
-             IMAGE_TAG: dev-${{ github.sha }}
+#          - name: Install SSH Key
+#            uses: shimataro/ssh-key-action@v2
+#            with:
+#              key: ${{ secrets.STAGING_SFTP_PRIVATE_KEY }} 
+#              known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+#              IMAGE_TAG: dev-${{ github.sha }}
 
-         - name: Check the secrets
-           run : ls .ssh
-           working-directory: ${{ env.working }}
+#          - name: Check the secrets
+#            run : ls .ssh
+#            working-directory: ${{ env.working }}
            
          
-         - name: check the keys
-           run : cat id_rsa
-           working-directory: ${{ env.working2 }}
+#          - name: check the keys
+#            run : cat id_rsa
+#            working-directory: ${{ env.working2 }}
            
-    #------------------------------------------------------------------##########
+#     #------------------------------------------------------------------##########
     
     
-         - name: Setup Node.js
-           uses: actions/setup-node@v2
-           with:
-             node-version: '14'
+#          - name: Setup Node.js
+#            uses: actions/setup-node@v2
+#            with:
+#              node-version: '14'
          
-         - name: install dep
-           run : npm i
+#          - name: install dep
+#            run : npm i
          
-#          - name: in to the directory
-#            run : cd ./templates
+# #          - name: in to the directory
+# #            run : cd ./templates
             
-         - name: Create ZIP deployment package
-           run : zip ${{ env.ARCHIVE_NAME }} -r .
-           working-directory: ${{ env.working-directory }}
+#          - name: Create ZIP deployment package
+#            run : zip ${{ env.ARCHIVE_NAME }} -r .
+#            working-directory: ${{ env.working-directory }}
          
-         - name: Create ZIP deployment package
-           run : zip ${{ env.ARCHIVE_NAME }} -r .
+#          - name: Create ZIP deployment package
+#            run : zip ${{ env.ARCHIVE_NAME }} -r .
            
-         - run : dir=$(ls) && echo $dir
-           working-directory: ${{ env.working-directory }}
+#          - run : dir=$(ls) && echo $dir
+#            working-directory: ${{ env.working-directory }}
          
            
-         - name: Configure my AWS Credentils
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-             aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
-             aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
-             aws-region           : ${{ env.AWS_REGION_NAME }}
+#          - name: Configure my AWS Credentils
+#            uses: aws-actions/configure-aws-credentials@v1
+#            with:
+#              aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
+#              aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
+#              aws-region           : ${{ env.AWS_REGION_NAME }}
          
-#          - name : check if the s3 bucket exists
-#            id   : check
-#            run  : OUTPUT=$(aws s3api  bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
-#        run : aws s3 ls "s3://${{ env.S3_BUCKET_NAME }}" 2>&1 | grep -q 'No such bucket'
+# #          - name : check if the s3 bucket exists
+# #            id   : check
+# #            run  : OUTPUT=$(aws s3api  bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
+# #        run : aws s3 ls "s3://${{ env.S3_BUCKET_NAME }}" 2>&1 | grep -q 'No such bucket'
 
-#        runs only when the previous steps fails
-         - name : Create an s3 bucket 
-           run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
-           working-directory: ${{ env.working-directory }}
+# #        runs only when the previous steps fails
+#          - name : Create an s3 bucket 
+#            run  : aws s3api create-bucket --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }}
+#            working-directory: ${{ env.working-directory }}
            
-         - name: put bucket policy
-           run : |
-            aws s3api put-public-access-block \
-            --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
-            --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
+#          - name: put bucket policy
+#            run : |
+#             aws s3api put-public-access-block \
+#             --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }} \
+#             --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
 
-#          - name : check if the s3 bucket exists
-#            id   : checks
-#            run  : OUTPUT=$(aws s3api wait bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
-         - run : dir=$(ls) && echo $dir
-           working-directory: ${{ env.working-directory }}
+# #          - name : check if the s3 bucket exists
+# #            id   : checks
+# #            run  : OUTPUT=$(aws s3api wait bucket-exists --bucket ${{ env.EB_PACKAGE_S3_BUCKET_NAME }})
+#          - run : dir=$(ls) && echo $dir
+#            working-directory: ${{ env.working-directory }}
 
 
-         - name: Copy our Deployment package to S3 bucket 
-           if  :  ${{ success() }}
-           run :  dir=$(ls) && echo $dir && aws s3 cp ${{ env.ARCHIVE_NAME }} "s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/${{ env.S3_PATH_FOR_CODE }}" --region ${{ env.AWS_REGION_NAME }}
-           working-directory: ${{ env.working-directory }}
+#          - name: Copy our Deployment package to S3 bucket 
+#            if  :  ${{ success() }}
+#            run :  dir=$(ls) && echo $dir && aws s3 cp ${{ env.ARCHIVE_NAME }} "s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/${{ env.S3_PATH_FOR_CODE }}" --region ${{ env.AWS_REGION_NAME }}
+#            working-directory: ${{ env.working-directory }}
          
-         - name: Copy our Deployment package to S3 bucket 
-           if  :  ${{ success() }}
-           run : aws s3 cp ${{ env.ARCHIVE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
+#          - name: Copy our Deployment package to S3 bucket 
+#            if  :  ${{ success() }}
+#            run : aws s3 cp ${{ env.ARCHIVE_NAME }} s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME}}/
            
            
-         - name: Print nice message on completion of CI Pipeline
-           if  : github.ref == 'ref/heads/dev'
-           run : echo "CI Pipeline part finished successfully"
+#          - name: Print nice message on completion of CI Pipeline
+#            if  : github.ref == 'ref/heads/dev'
+#            run : echo "CI Pipeline part finished successfully"
            
 
          
 
            
-  build-CD:
-    name: my CD-pipeline
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: aws-actions/setup-sam@v1
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
-          aws-region           : ${{ env.AWS_REGION_NAME }}
-      - run : sam build
-#         working-directory: github-actions-cicd-to-elasticbeanstalk
+#   build-CD:
+#     name: my CD-pipeline
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: aws-actions/setup-sam@v1
+#       - uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id    : ${{ secrets.MY_AWS_ACCESS_KEY }}
+#           aws-secret-access-key: ${{ secrets.MY_AWS_SECRET_KEY }}
+#           aws-region           : ${{ env.AWS_REGION_NAME }}
+#       - run : sam build
+# #         working-directory: github-actions-cicd-to-elasticbeanstalk
         
-      - run : dir=$(ls) && echo $dir 
+#       - run : dir=$(ls) && echo $dir 
       
-      - run: sam deploy --template-file template.yml --capabilities CAPABILITY_IAM --s3-bucket {{ env.EB_PACKAGE_S3_BUCKET_NAME}} --stack-name ${{ env.STACK_NAME }}
-#         working-directory: github-actions-cicd-to-elasticbeanstalk
+#       - run: sam deploy --template-file template.yml --capabilities CAPABILITY_IAM --s3-bucket {{ env.EB_PACKAGE_S3_BUCKET_NAME}} --stack-name ${{ env.STACK_NAME }}
+# #         working-directory: github-actions-cicd-to-elasticbeanstalk
        
-      - name: Create new ElasticBeanstalk Applicaiton Version
-        run: |
-             aws elasticbeanstalk create-application-version \
-             --application-name ${{ env.EB_APPLICATION_NAME }} \
-             --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
-             --version-label "Ver-${{ github.sha }}" \
-             --description "CommitSHA-${{ github.sha }}"
-      - name: Deploy our new Application Version
-        run : aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
+#       - name: Create new ElasticBeanstalk Applicaiton Version
+#         run: |
+#              aws elasticbeanstalk create-application-version \
+#              --application-name ${{ env.EB_APPLICATION_NAME }} \
+#              --source-bundle S3Bucket="${{ env.EB_PACKAGE_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
+#              --version-label "Ver-${{ github.sha }}" \
+#              --description "CommitSHA-${{ github.sha }}"
+#       - name: Deploy our new Application Version
+#         run : aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "Ver-${{ github.sha }}"
            
-      - name: Print nice message on completion of CD Pipeline
-        if  : github.ref == 'ref/heads/dev'
-        run : echo "CD Pipeline part finished successfully" 
+#       - name: Print nice message on completion of CD Pipeline
+#         if  : github.ref == 'ref/heads/dev'
+#         run : echo "CD Pipeline part finished successfully" 
         
        
          
