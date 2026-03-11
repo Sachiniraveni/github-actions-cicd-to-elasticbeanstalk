@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+    pull-request-branch-name:
+      prefix: "feature"
+      separator: "/"
